@@ -25,7 +25,7 @@ class Mentions:
       self.RESTRICT_BY_ID
 
     mention_list = []
-    search = self.T.GetMentions(include_entities=False) #, since_id=since)
+    search = self.T.GetMentions(include_entities=False, since_id=since)
     for s in search:
       year = s.created_at.split(' ')[-1]
       yint = int(year)

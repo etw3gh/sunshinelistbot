@@ -119,7 +119,8 @@ class Translators:
         "uofw": "University of Windsor",
         "victoria": "Victoria University",
         "wilfred": "Wilfrid Laurier University",
-        "laurier": "Wilfrid Laurier University"}
+        "laurier": "Wilfrid Laurier University",
+        "york":"York University"}
 
     #more well known translated into less well known
     self.affiliates = {

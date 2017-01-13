@@ -10,7 +10,7 @@ from red import RedSet
 import sys, os
 from time import sleep
 
-sleeptime = 60
+sleeptime = 65
 sleeptesting = 10
 
 service_url = "http://openciti.ca/cgi-bin/mp/get?"
@@ -64,7 +64,7 @@ while True:
           tweeter.replyvague(m)
 
     print ('sleeping....')
-    sleep(sleeptesting)
+    sleep(sleeptime)
 
   except Exception as ex:
     exc_type, exc_obj, exc_tb = sys.exc_info()

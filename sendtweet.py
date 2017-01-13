@@ -49,14 +49,14 @@ class SendTweet:
 
   def construct(self, result, user):
     name = '{} {}'.format(result.first, result.last)
-    sal = str(result.salary)
+    sal = '${:0,.2f}'.format(result.salary)
     year = str(result.year)
     try:
       hashtag = self.hashes.hashtags[result.school]
     except:
       hashtag = '#sunshinelist #ongov #onpoli'
-
-    tweet = 'Hello @{}, {} made ${} in {} {}'.format(user, name, sal, year, hashtag)
+    
+    tweet = 'Hello @{}, {} made {} in {} {}'.format(user, name, sal, year, hashtag)
     return tweet
 
   def send(self, text, id):
