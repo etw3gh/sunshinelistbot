@@ -72,16 +72,19 @@ class Translators:
         "au": "Algoma University",
         "algoma": "Algoma University",
         "a": "Algoma University",
+        "#algomau": "Algoma University",
 
         #b
         "bresica": "Brescia University College",
         "buc": "Brescia University College",
         "br": "Brescia University College",
+        "#brocku": "Brock University",
         "brock": "Brock University",
         "bu": "Brock University",
         "b": "Brock University",
 
         #c
+        "#carletonu": "Carleton University",
         "carleton": "Carleton University",
         "cu": "Carleton University",
         "c": "Carleton University",

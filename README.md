@@ -2,10 +2,20 @@
 
 # requirements
 
+`sudo apt install python-pip3` 
+
+redis:
+
+`
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make install
+`
+
 [python-twitter](https://github.com/bear/python-twitter)
 
-sudo pip3 install python-twitter
-
+`sudo pip3 install python-twitter redis`
 
 ##GetMentions 
 
