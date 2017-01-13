@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 class Translators:
   def __init__(self):
 
@@ -39,7 +40,9 @@ class Translators:
         "Brescia University College": "#uWaterloo",
         "Brock University": "#BrockU",
         "Carleton University": "#CarletonU",
+        "Carleton": "#CarletonU",
         "Collège de Hearst": "#HearstCollege",
+        "College de Hearst": "#HearstCollege",
         "Huntington University": "#HuntingtonU",
         "Huron University College": "#uwo",
         "King's University College": "#uwo",
@@ -50,6 +53,9 @@ class Translators:
         "Northern Ontario School of Medicine": "#NOSM",
         "Ontario College of Art and Design University": "#OCAD",
         "Queen's University": "#QueensU",
+        "Queens University": "#QueensU",
+        "Queen's": "#QueensU",
+        "Queens": "#QueensU",
         "Ryerson University": "#RyersonU",
         "Trent University": "#TrentU",
         "Trinity College": "#uoft",
@@ -61,6 +67,7 @@ class Translators:
         "University of Toronto": "#uoft",
         "University of Waterloo": "#uwaterloo",
         "University of Western Ontario": "#uwo",
+        "Western": "#uwo",
         "University of Windsor": "#uWindsor",
         "Victoria University": "#uoft",
         "Wilfrid Laurier University": "#WilfredLaurier",

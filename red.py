@@ -21,6 +21,12 @@ class RedSet:
     # ignore these users
     self.ignorelist = 'bad'
 
+    # unhandled errors. so we don't keep trying to answer but may get back to eventually
+    self.errors = 'err'
+
+  def adderr(self, id):
+    self.red.sadd(self.errors, id)
+    
   def addbad(self, id):
     self.red.sadd(self.ignorelist, id)
 
@@ -32,7 +38,8 @@ class RedSet:
     self.red.set(self.lastreplyid, id) 
 
   def getlastid(self):
-    return self.red.get(self.lastreplyid)
+    id = self.red.get(self.lastreplyid)
+    return int(id)
 
   def addid(self, id):
     self.red.sadd(self.allrepliyids, id)
