@@ -18,6 +18,16 @@ class RedSet:
     # store all replies here so no duplicate tweets are sent out
     self.allrepliyids = 'rids'
 
+    # ignore these users
+    self.ignorelist = 'bad'
+
+  def addbad(self, id):
+    self.red.sadd(self.ignorelist, id)
+
+  def isbad(self, id):
+    val = self.red.sismember(self.ignorelist, id)
+    return True if val == 1 else False
+  
   def setlastid(self, id):
     self.red.set(self.lastreplyid, id) 
 

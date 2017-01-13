@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
+
+
 class Mention:
   def __init__(self):
     self.user = ''
     self.text = ''
     self.id = 0
+
+
+
 class Mentions:
 
   def __init__(self, creds):
@@ -11,7 +16,10 @@ class Mentions:
 
     # this twitter bot has been around for a while
     # we'd like to ignore old tweets
+    #
+    # an old tweet from the mentions
     self.RESTRICT_BY_ID = '534033245575213056'
+    # nothing before 2017 (>2016)
     self.NOT_BEFORE_YEAR = 2016
 
   def mentions(self, since=None):
