@@ -1,0 +1,9 @@
+__pycache__
+years
+rips
+*.pyc
+*.save
+*~
+*out
+out*
+temp*
