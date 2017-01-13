@@ -19,28 +19,19 @@ class TokenizeTweet:
       pass
     
     possible_names = []
-    hashtags = []
     help = []
+    
     # save good data here
     final_query = Query()
 
     for word in words:
       word = word.strip()
-      if word in self.hashes.ignore:
+      if word in self.hashes.ignore or word[0] == '#' or word[0] == '@':
         continue
+
       if word in self.hashes.help:
         help.append(word)
         continue
-      
-      if word[0] == '#':
-        hashtags.append(word)
-        word = word.lstrip('#')
-        pass
-      
-      if word[0] == '@':
-        pass
-      
-
       
       check = self.haskey(word, self.shortcutkeys)
       if len(check) > 0:

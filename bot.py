@@ -5,18 +5,8 @@ from login import Login
 from red import RedSet
 import sys
 
-from translation import Translators
-T = Translators()
-test = 'xxx'
-keys = T.uni_short.keys()
-found = [s for s in keys if test in s]
-print(found)
-sys.exit(2)
-
 twitterlogin = Login()
 creds = twitterlogin.api
-
-
 
 tweeter = SendTweet(creds)
 
