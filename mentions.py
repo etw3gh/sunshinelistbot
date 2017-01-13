@@ -29,6 +29,5 @@ class Mentions:
         mention.user = s.user.screen_name
         mention.text = s.text
         mention.id = s.id
-        #print ('{}: {} --- {}\n'.format(s.user.screen_name, year, s.text))
         mention_list.append(mention)
     return mention_list
