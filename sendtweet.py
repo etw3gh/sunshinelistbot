@@ -12,9 +12,27 @@ class SendTweet:
     self.vague = 'Hello @{}, please give us a bit more to go on such as first name folowed by last name'
     self.toomany = 'Hello @{}, we found {} results, try to narrow it down a bit'
     self.noresults = 'Hello @{}, no results were found for your query. Please try again.'
+
+    self.noname = 'Hello @{}, your tweet did not contain a name. Please try again.'
+    self.noschool = 'Hello @{}, your tweet did not contain a school. Please try again.'
+
     self.redisdb = RedSet()
     self.hashes = Translators()
     self.sunshine = '#sunshinelist'
+
+  def noname(self, mention):
+    # ensure only one @ is put before the reply handle
+    u = mention.user.lstrip('@')
+    tweet = self.name.format(u)
+    r = self.send(tweet, mention.id)
+    return r
+    
+  def noschool(self, mention):
+    # ensure only one @ is put before the reply handle
+    u = mention.user.lstrip('@')
+    tweet = self.school.format(u)
+    r = self.send(tweet, mention.id)
+    return r
 
   def nores(self, mention):
     # ensure only one @ is put before the reply handle
@@ -62,7 +80,7 @@ class SendTweet:
         # alternate between #schoolU and #school
         if rint < 5:
           hashtag = hashtag[:-1]
-          
+
       except:
         hashtag = '#sunshinelist #ongov #onpoli'
     else:

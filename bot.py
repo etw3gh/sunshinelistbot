@@ -46,10 +46,18 @@ while True:
       print ('processing: ' + str(m.id))
       # proceed only if we've not stored the id in this set
       if not redisdb.inset(m.id):
-        #uery = Query()
-        query = tokenizer.tokenize(m.text)
-        print(query.school)
-        print(query.names)
+        
+        try:
+          query = tokenizer.tokenize(m.text)
+        except Exception as tokerr:
+          terr = str(tokerr)
+          if 'name' in terr:
+            tweeter.noname(m)
+          elif 'school' in terr:
+            tweeter.noschool(m)
+          else:
+            pass
+          continue
 
         if len(query.names) > 0:
           results = query.get(service_url)

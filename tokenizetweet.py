@@ -65,10 +65,12 @@ class TokenizeTweet:
       # iterate over remaining words until a school name is found
       # if used, remove from list
       for word in words:
+        word = word.strip()
+        if word == '':
+          continue
         check = self.haskey(word, self.shortcutkeys)
         if len(check) > 0:
           if query.school is None:
-            print ('{}==>{}'.format(word, self.hashes.uni_short['ryerson']))
             query.school = self.hashes.uni_short[word]
             wordindex = words.index(word)
             del words[wordindex]
@@ -88,6 +90,5 @@ class TokenizeTweet:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       print ('{}: {} ({})  -- \n\n'.format(fname, exc_tb.tb_lineno, str(ex), exc_type))
-      
-      sys.exit(2)
+      raise Exception(str(ex))
       
