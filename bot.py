@@ -43,7 +43,7 @@ while True:
 
     # process and respond if necessary
     for m in mention_list:
-      print ('processing: ' + str(m.id))
+      print ('processing from last known id: ' + str(m.id))
       # proceed only if we've not stored the id in this set
       if not redisdb.inset(m.id):
         
