@@ -10,6 +10,9 @@ from red import RedSet
 import sys, os
 from time import sleep
 
+# set max to number of years to allow all years  
+MAXMENTIONS = 2016 - 1996
+
 sleeptime = 65
 sleeptesting = 10
 
@@ -53,7 +56,7 @@ while True:
           lenres = len(results)
           if lenres == 0:
             tweeter.nores(m)
-          elif lenres > 7:
+          elif lenres > MAXMENTIONS:
             tweeter.replytoomany(m, len(results))
             continue
              
@@ -64,11 +67,11 @@ while True:
           tweeter.replyvague(m)
 
     print ('sleeping....')
-    sleep(sleeptime)
+    sleep(sleeptesting)
 
   except Exception as ex:
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     print ('{}: {} ({})  -- \n\n'.format(fname, exc_tb.tb_lineno, str(ex), exc_type))
-    #sleep(60)
-    break
+    
+    sys.exit(2)

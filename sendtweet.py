@@ -51,11 +51,23 @@ class SendTweet:
     name = '{} {}'.format(result.first, result.last)
     sal = '${:0,.2f}'.format(result.salary)
     year = str(result.year)
-    try:
-      hashtag = self.hashes.hashtags[result.school]
-    except:
-      hashtag = '#sunshinelist #ongov #onpoli'
-    
+
+    # prevent hashtag spam
+    rint = random.randint(0,10)
+    if rint == 8:
+      try:
+        hashtag = self.hashes.hashtags[result.school]
+        rint = random.randint(0,10)
+
+        # alternate between #schoolU and #school
+        if rint < 5:
+          hashtag = hashtag[:-1]
+          
+      except:
+        hashtag = '#sunshinelist #ongov #onpoli'
+    else:
+      hashtag = ''
+
     tweet = 'Hello @{}, {} made {} in {} {}'.format(user, name, sal, year, hashtag)
     return tweet
 

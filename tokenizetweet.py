@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from translation import Translators
 from query import Query
+from datetime import date
+import sys, os
 
 class TokenizeTweet:
   def __init__(self):
@@ -10,6 +12,18 @@ class TokenizeTweet:
   def haskey(self, test, keys):
     return [s for s in keys if test in s]
 
+  def purge_unwanted(self, L):
+    return [x for x in L if x[0]!='#' and x[0]!='@' and x not in self.hashes.ignore]
+
+  def purge_lista_of_listb(self, a, b):
+    return [x for x in a if x not in b]
+
+  def extract_numbers(self, a):
+    return [x for x in a if x.isnumeric()]
+
+  def purge_non_years_from_numeric(self, a):
+    Y = date.today().year
+    return [ x for x in a if len(x)==4 and int(x)>=1996 and int(x)<Y]
 
   def tokenize(self, tweet):
     try:
@@ -19,31 +33,61 @@ class TokenizeTweet:
       numwords = len(words)
       if numwords < 3:
         pass
-      
-      help = []
+ 
+      help = False
       query = Query()
-      for word in words:
-        word = word.strip()
-        if word in self.hashes.ignore or word[0] == '#' or word[0] == '@':
-          continue
 
-        if word in self.hashes.help:
-          help.append(word)
-          continue
-        
+      # strip out unwanted (hashtags, mentions and ignores)
+      try:
+        words = self.purge_unwanted(words)
+      except IndexError:
+        pass
+
+      #if the length changes after help keywords are purged, set help to True
+      wlen = len(words)
+      words = self.purge_lista_of_listb(words, self.hashes.help)
+
+      if len(words) < wlen:
+        help = True
+
+      #extract numbers
+      nums = self.extract_numbers(words)
+
+      #get first 2 years for range, sort in ascending order
+      yrs = sorted(self.purge_non_years_from_numeric(nums)[0:2])
+
+      #the web service will detect a hypenated year as a range
+      query.years = '-'.join(yrs)
+
+      #remove numbers before proceeding
+      words = self.purge_lista_of_listb(words, nums)
+      
+      # iterate over remaining words until a school name is found
+      # if used, remove from list
+      for word in words:
         check = self.haskey(word, self.shortcutkeys)
         if len(check) > 0:
           if query.school is None:
+            print ('{}==>{}'.format(word, self.hashes.uni_short['ryerson']))
             query.school = self.hashes.uni_short[word]
+            wordindex = words.index(word)
+            del words[wordindex]
           continue  
+      
+      if query.school is None:
+        raise Exception('no school found')
+      if len(words) == 0:
+        raise Exception('no names found')
 
-        query.names.append(word)
+      # whatever remains, push the first two onto the names stack
+      query.names.extend(words[0:2])
 
-        # once there are 2 possible names and we have a school name, ignore the rest
-        if len(query.names) > 1 and query.school is not None:
-          break
-
-      return self.query
-    except Exception as tokex:
-      print(tokex)
       return query
+
+    except Exception as ex:
+      exc_type, exc_obj, exc_tb = sys.exc_info()
+      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      print ('{}: {} ({})  -- \n\n'.format(fname, exc_tb.tb_lineno, str(ex), exc_type))
+      
+      sys.exit(2)
+      

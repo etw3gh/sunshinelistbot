@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import requests, urllib, json
 from result import Result
-
-
+from datetime import date
+import sys, os
 class Query:
   """
   an incoming tweet is scanned for mentions of a university
@@ -22,6 +22,7 @@ class Query:
   def __init__(self):
     self.school = None
     self.names = []
+    self.year = None
 
   def get(self, service_url):
     """
@@ -33,42 +34,62 @@ class Query:
 
     TODO if no hits are obtained for either case we may switch first / last order
     """
-    params = None
+    try:
+      params = None
 
-    nameslen = len(self.names)
-    
-    # this case is handled by bot.py
-    if nameslen == 0:
-      return
-    
-    elif nameslen == 1:
-      params = {'school': self.school, 'last': self.names[0], 'year': '2015'}
-    
-    else:
-      params = {'school': self.school, 'first': self.names[0], 'last': self.names[1], 'year': '2015'}
-
-    if params is not None:
-      u = service_url + urllib.parse.urlencode(params)
-
-      print ('making request: {}\n'.format(u))
-
-      req = requests.get(u)
-
+      nameslen = len(self.names)
       
+      # determine default year if no year is specified
+      # use year - 1  if its april or later
+      # otherwise use year -1
+      # based on when the data is expected to be released to the public 
+      if self.year is None:
+        current = date.today().year
+        if date.today().month > 3:
+          self.year = current - 1
+        else:
+          self.year = current - 2
 
-      request_status = req.status_code
 
-      jdict = json.loads(req.text)
-
-      rows = jdict['rows']
-      count = jdict['count']
+      # this case is handled by bot.py
+      if nameslen == 0:
+        return
       
-      # returned in the data object
-      service_status = jdict['status']
+      elif nameslen == 1:
+        params = {'school': self.school, 'last': self.names[0], 'year': self.year}
+      
+      else:
+        params = {'school': self.school, 'first': self.names[0], 'last': self.names[1], 'year': self.year}
 
-      print('results: {}\n'.format(count))
-      result_array = []
-      for row in rows:
-        result = Result(row)
-        result_array.append(result)
-      return result_array
+      if params is not None:
+        u = service_url + urllib.parse.urlencode(params)
+
+        print ('making request: {}\n'.format(u))
+
+        req = requests.get(u)
+
+        
+
+        request_status = req.status_code
+
+        jdict = json.loads(req.text)
+
+        rows = jdict['rows']
+        count = jdict['count']
+        
+        # returned in the data object
+        service_status = jdict['status']
+
+        print('results: {}\n'.format(count))
+        result_array = []
+        for row in rows:
+          result = Result(row)
+          result_array.append(result)
+        return result_array
+    except Exception as ex:
+      exc_type, exc_obj, exc_tb = sys.exc_info()
+      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      print ('{}: {} ({})  -- \n\n'.format(fname, exc_tb.tb_lineno, str(ex), exc_type))
+      
+      sys.exit(2)
+      
