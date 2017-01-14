@@ -28,7 +28,7 @@ creds = twitterlogin.api
 # sends outgoing tweets (responses to salary data requests)
 tweeter = SendTweet(creds)
 
-# simple persistent storage to prevent duplicate tweets and twitter search cursor
+# simple persistent storage to prevent duplicate tweets
 redisdb = RedSet()
 
 # get mentions for the twitter handle associated with the API Keys
