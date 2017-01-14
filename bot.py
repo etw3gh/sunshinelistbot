@@ -67,11 +67,11 @@ while True:
           tweeter.replyvague(m)
 
     print ('sleeping....')
-    sleep(sleeptesting)
+    sleep(sleeptime)
 
   except Exception as ex:
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     print ('{}: {} ({})  -- \n\n'.format(fname, exc_tb.tb_lineno, str(ex), exc_type))
-    
+
     sys.exit(2)
