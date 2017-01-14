@@ -38,7 +38,11 @@ class TokenizeTweet:
           continue  
 
         query.names.append(word)
-      
+
+        # once there are 2 possible names and we have a school name, ignore the rest
+        if len(query.names) > 1 and query.school is not None:
+          break
+
       return self.query
     except Exception as tokex:
       print(tokex)
