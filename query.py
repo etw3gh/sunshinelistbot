@@ -23,7 +23,8 @@ class Query:
     self.school = None
     self.names = []
     self.year = None
-
+    self.help = False
+    
   def get(self, service_url):
     """
     at least one name should be sent

@@ -15,10 +15,18 @@ class SendTweet:
 
     self.nonamefound = 'Hello @{}, your tweet did not contain a name. Please try again.'
     self.noschoolfound = 'Hello @{}, your tweet did not contain a school. Please try again.'
+    self.usage= '@{} usage: school (optional first) last year1 (optional year2 for range)'
 
     self.redisdb = RedSet()
     self.hashes = Translators()
     self.sunshine = '#sunshinelist'
+
+  def help(self, mention):
+    # ensure only one @ is put before the reply handle
+    u = mention.user.lstrip('@')
+    tweet = self.usage.format(u)
+    r = self.send(tweet, mention.id)
+    return r  
 
   def noname(self, mention):
     # ensure only one @ is put before the reply handle

@@ -33,8 +33,7 @@ class TokenizeTweet:
       numwords = len(words)
       if numwords < 3:
         pass
- 
-      help = False
+
       query = Query()
 
       # strip out unwanted (hashtags, mentions and ignores)
@@ -48,7 +47,7 @@ class TokenizeTweet:
       words = self.purge_lista_of_listb(words, self.hashes.help)
 
       if len(words) < wlen:
-        help = True
+        query.help = True
 
       #extract numbers
       nums = self.extract_numbers(words)
@@ -76,9 +75,14 @@ class TokenizeTweet:
             del words[wordindex]
           continue  
       
+      # raise excepions unless help flag is True, then the bot will send out a help tweet
       if query.school is None:
+        if query.help == True:
+          return query
         raise Exception('no school found')
       if len(words) == 0:
+        if query.help == True:
+          return query        
         raise Exception('no names found')
 
       # whatever remains, push the first two onto the names stack

@@ -129,7 +129,7 @@ class Translators:
         "University of Toronto": ["University of St. Michael's College", "Trinity College", "Victoria University"]
         }
 
-    self.ignore = [ "a", "by",
+    self.ignore = [ "a", "by", "u", "uni",
         "university",
         "school",
         "college",

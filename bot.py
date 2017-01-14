@@ -49,6 +49,9 @@ while True:
         
         try:
           query = tokenizer.tokenize(m.text)
+          if query.help == True:
+            tweeter.help(m)
+            continue
         except Exception as err:
           e = str(err)
           if 'name' in e:
