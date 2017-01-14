@@ -13,8 +13,8 @@ class SendTweet:
     self.toomany = 'Hello @{}, we found {} results, try to narrow it down a bit'
     self.noresults = 'Hello @{}, no results were found for your query. Please try again.'
 
-    self.noname = 'Hello @{}, your tweet did not contain a name. Please try again.'
-    self.noschool = 'Hello @{}, your tweet did not contain a school. Please try again.'
+    self.nonamefound = 'Hello @{}, your tweet did not contain a name. Please try again.'
+    self.noschoolfound = 'Hello @{}, your tweet did not contain a school. Please try again.'
 
     self.redisdb = RedSet()
     self.hashes = Translators()
@@ -23,14 +23,14 @@ class SendTweet:
   def noname(self, mention):
     # ensure only one @ is put before the reply handle
     u = mention.user.lstrip('@')
-    tweet = self.name.format(u)
+    tweet = self.nonamefound.format(u)
     r = self.send(tweet, mention.id)
     return r
-    
+
   def noschool(self, mention):
     # ensure only one @ is put before the reply handle
     u = mention.user.lstrip('@')
-    tweet = self.school.format(u)
+    tweet = self.noschoolfound.format(u)
     r = self.send(tweet, mention.id)
     return r
 

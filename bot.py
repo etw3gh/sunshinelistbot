@@ -49,11 +49,11 @@ while True:
         
         try:
           query = tokenizer.tokenize(m.text)
-        except Exception as tokerr:
-          terr = str(tokerr)
-          if 'name' in terr:
+        except Exception as err:
+          e = str(err)
+          if 'name' in e:
             tweeter.noname(m)
-          elif 'school' in terr:
+          elif 'school' in e:
             tweeter.noschool(m)
           else:
             pass
