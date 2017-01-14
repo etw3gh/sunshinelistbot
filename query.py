@@ -27,12 +27,8 @@ class Query:
   def get(self, service_url):
     """
     at least one name should be sent
-
-    if one name is sent, it will be treated as a last NameError
-
+    if one name is sent, it will be treated as a last name
     if two names are sent they will be treated as first & last in that order
-
-    TODO if no hits are obtained for either case we may switch first / last order
     """
     try:
       params = None
@@ -41,7 +37,7 @@ class Query:
       
       # determine default year if no year is specified
       # use year - 1  if its april or later
-      # otherwise use year -1
+      # otherwise use year - 2
       # based on when the data is expected to be released to the public 
       if self.year is None:
         current = date.today().year
@@ -68,8 +64,6 @@ class Query:
 
         req = requests.get(u)
 
-        
-
         request_status = req.status_code
 
         jdict = json.loads(req.text)
@@ -85,7 +79,9 @@ class Query:
         for row in rows:
           result = Result(row)
           result_array.append(result)
+
         return result_array
+
     except Exception as ex:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
