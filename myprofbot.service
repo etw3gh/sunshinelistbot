@@ -1,0 +1,11 @@
+[Unit]
+Description=twitter bot service myprofmakes
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/bots/sunshinelistbot/bot.py
+Restart=always
+WorkingDirectory=/home/ubuntu/bots/sunshinelistbot/
+
+[Install]
+WantedBy=multi-user.target
