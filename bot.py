@@ -38,7 +38,9 @@ while True:
   try:
     # get the last id so searches can exclude previously answered tweets
     lastid = redisdb.getlastid()
+    
     # get a list of tweets mentioning the bot account  
+    
     mention_list = getmentions.mentions(lastid)
 
     # process and respond if necessary

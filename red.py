@@ -24,6 +24,10 @@ class RedSet:
     # unhandled errors. so we don't keep trying to answer but may get back to eventually
     self.errors = 'err'
 
+    # init values
+    if self.getlastid() is None:
+      self.setlastid = 0
+
   def adderr(self, id):
     self.red.sadd(self.errors, id)
     
