@@ -40,7 +40,7 @@ class Query:
       # use year - 1  if its april or later
       # otherwise use year - 2
       # based on when the data is expected to be released to the public 
-      if self.years is None:
+      if self.years is None or self.years.strip() == '':
         current = date.today().year
         if date.today().month > 3:
           self.years = current - 1

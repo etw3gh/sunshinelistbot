@@ -22,8 +22,7 @@ class TokenizeTweet:
     return [x for x in a if x.isnumeric()]
 
   def purge_non_years_from_numeric(self, a):
-    Y = date.today().year
-    return [ x for x in a if len(x)==4 and int(x)>=1996 and int(x)<Y]
+    return [ x for x in a if len(x)==4 and int(x)>=1900 and int(x)<2100]
 
   def tokenize(self, tweet):
     try:
@@ -54,10 +53,9 @@ class TokenizeTweet:
 
       #get first 2 years for range, sort in ascending order
       yrs = sorted(self.purge_non_years_from_numeric(nums)[0:2])
-
+      
       #the web service will detect a hypenated year as a range
       query.years = '-'.join(yrs)
-
 
       #remove numbers before proceeding
       words = self.purge_lista_of_listb(words, nums)
