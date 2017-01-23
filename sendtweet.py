@@ -85,9 +85,9 @@ class SendTweet:
         hashtag = self.hashes.hashtags[result.school]
         rint = random.randint(0,10)
 
-        # alternate between #schoolU and #school
+        # alternate between #schoolU and #school (if u is present)
         if rint < 5:
-          hashtag = hashtag[:-1]
+          hashtag = hashtag.lower().rstrip('u')
 
       except:
         hashtag = '#sunshinelist #ongov #onpoli'
