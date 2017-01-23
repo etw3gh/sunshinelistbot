@@ -38,17 +38,17 @@ while True:
   try:
     # get the last id so searches can exclude previously answered tweets
     lastid = redisdb.getlastid()
-    
-    # get a list of tweets mentioning the bot account  
-    
+
+    # get a list of tweets mentioning the bot account
+
     mention_list = getmentions.mentions(lastid)
+    print ('processing from last known id: ' + str(lastid))
 
     # process and respond if necessary
     for m in mention_list:
-      print ('processing from last known id: ' + str(m.id))
       # proceed only if we've not stored the id in this set
       if not redisdb.inset(m.id):
-        
+
         try:
           query = tokenizer.tokenize(m.text)
           if query.help == True:

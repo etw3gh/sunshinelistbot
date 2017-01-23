@@ -1,19 +1,33 @@
 # Twitter Bot (@myprofmakes)
 
-# usage (run as background or service) 
+## API Keys (apps.twitter.com)
 
-python3 bot.py
-
-# API Keys (apps.twitter.com)
-
-in ~/.bashrc or similar:
+Put ENV Variables in /etc/sysconfig/myprofbot
+:
 
 ```
-export AT='ACCESS-TOKEN'
-export ATS='ACCESS-TOKEN-SECRET'
-export CK='CONSUMER-KEY'
-export CS='CONSUMER-SECRET'
+AT='ACCESS-TOKEN'
+ATS='ACCESS-TOKEN-SECRET'
+CK='CONSUMER-KEY'
+CS='CONSUMER-SECRET'
 ```
+
+
+## run as service 
+
+chmod +x bot.py
+
+change paths in myprofbot service to match absolute location of this repo
+
+    ExecStart and WorkingDirectory
+
+sudo cp myprofbot.service /etc/systemd/system
+
+sudo systemctl enable myprofbot.service
+
+sudo systemctl preset myprofbot.service
+
+
 
 # requirements
 
