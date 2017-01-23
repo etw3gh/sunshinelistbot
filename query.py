@@ -22,7 +22,7 @@ class Query:
   def __init__(self):
     self.school = None
     self.names = []
-    self.year = None
+    self.years = None
     self.help = False
     
   def get(self, service_url):
@@ -40,12 +40,12 @@ class Query:
       # use year - 1  if its april or later
       # otherwise use year - 2
       # based on when the data is expected to be released to the public 
-      if self.year is None:
+      if self.years is None:
         current = date.today().year
         if date.today().month > 3:
-          self.year = current - 1
+          self.years = current - 1
         else:
-          self.year = current - 2
+          self.years = current - 2
 
 
       # this case is handled by bot.py
@@ -53,10 +53,9 @@ class Query:
         return
       
       elif nameslen == 1:
-        params = {'school': self.school, 'last': self.names[0], 'year': self.year}
-      
+        params = {'school': self.school, 'last': self.names[0], 'year': self.years}
       else:
-        params = {'school': self.school, 'first': self.names[0], 'last': self.names[1], 'year': self.year}
+        params = {'school': self.school, 'first': self.names[0], 'last': self.names[1], 'year': self.years}
 
       if params is not None:
         u = service_url + urllib.parse.urlencode(params)

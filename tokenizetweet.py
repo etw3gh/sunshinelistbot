@@ -58,6 +58,7 @@ class TokenizeTweet:
       #the web service will detect a hypenated year as a range
       query.years = '-'.join(yrs)
 
+
       #remove numbers before proceeding
       words = self.purge_lista_of_listb(words, nums)
       
