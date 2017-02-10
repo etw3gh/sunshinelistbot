@@ -22,7 +22,7 @@ class RedSet:
     self.lastreplyid = 'lrid'
 
     # store all replies here so no duplicate tweets are sent out
-    self.allrepliyids = 'rids'
+    self.allreplyids = 'rids'
 
     # ignore these users
     self.ignorelist = 'bad'
@@ -50,8 +50,19 @@ class RedSet:
     return int(id)
 
   def addid(self, id):
-    self.red.sadd(self.allrepliyids, id)
+    self.red.sadd(self.allreplyids, id)
+
+  def getallreplies(self):
+    return self.red.smembers(self.allreplyids)
 
   def inset(self, id):
     val = self.red.sismember(self.allrepliyids, id)
     return True if val == 1 else False
+
+
+if __name__ == '__main__':
+  r = RedSet()
+  print('lastid: {}\n'.format(str(r.getlastid())))
+  replies = r.getallreplies()
+  for id in replies:
+    print(id)
