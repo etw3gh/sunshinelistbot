@@ -56,7 +56,7 @@ class RedSet:
     return self.red.smembers(self.allreplyids)
 
   def inset(self, id):
-    val = self.red.sismember(self.allrepliyids, id)
+    val = self.red.sismember(self.allreplyids, id)
     return True if val == 1 else False
 
 
